@@ -1,0 +1,63 @@
+swagger: "2.0"
+info:
+  title: nw
+  version: "1.0"
+tags:
+  - name: NetworkService
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/v1/nw/{nwId}:
+    get:
+      summary: Get Network
+      description: Get Network
+      operationId: nw
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: nwId
+          in: path
+          required: true
+          type: string
+        - name: filter
+          in: query
+          required: false
+          type: string
+      tags:
+        - Network
+definitions:
+  rpcStatus:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          $ref: '#/definitions/protobufAny'
+  protobufAny:
+    type: object
+    properties:
+      typeUrl:
+        type: string
+      value:
+        type: string
+        format: byte
+
+externalDocs:
+  description: Network Service
+  url: https://nw.com
